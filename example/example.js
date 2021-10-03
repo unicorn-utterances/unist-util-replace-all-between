@@ -1,54 +1,53 @@
 const remark = require('remark');
-const between = require('..');
+const replaceBetween = require('..');
 
 const markdown = `
-# Example
+# Hello World!
 
-**List one:**
-- 1
-- 2
+This is a [Real page](https://google.com)
 
-**List two:**
-- 3
-- 4
-- 5
+<!-- tabs:start -->
 
-# End
+#### **English**
 
-**List three:**
-- 6
-- 7
+Hello!
+
+#### **French**
+
+Bonjour!
+
+#### **Italian**
+
+Ciao!
+
+<!-- tabs:end -->
+
+Testing
+
+# Test
 `;
 
 // Create a plugin for remark
 const plugin = () => (tree) => {
   // `start` and `end` nodes to look for, and find between.
   const start = {
-    type: 'heading',
-    children: [
-      {
-        value: 'Example'
-      }
-    ]
+    type: 'html',
+    value: '<!-- tabs:start -->'
   };
 
   const end = {
-    type: 'heading',
-    children: [
-      {
-        value: 'End'
-      }
-    ]
+    type: 'html',
+    value: '<!-- tabs:end -->'
   };
 
-  // Test for list types and paragraph types
-  const test = (node) => node.type === 'list' || node.type === 'paragraph';
-
   // Get lists between `start` and `end`
-  const lists = between(tree, start, end, test);
-
-  // Store lists and their labels
-  tree.children = lists;
+  replaceBetween(tree, start, end, list => {
+    console.log(list)
+    return [{
+      type: 'html',
+      value: '<p>Testing</p>'
+    }]
+  });
 
   // Return new tree
   return tree;
