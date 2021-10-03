@@ -1,4 +1,5 @@
 import {remark} from 'remark'
+import {is} from 'unist-util-is';
 import replaceBetween from '../index.js';
 
 const markdown = `
@@ -42,10 +43,17 @@ const plugin = () => (tree) => {
 
   // Get lists between `start` and `end`
   replaceBetween(tree, start, end, list => {
-    console.log(list)
+    // Remove both `tabs` mention
+    list.shift();
+    list.pop()
+
+    const headerIndexes = list
+      .map((node, i) => is(node, {type: 'heading'}) && i)
+      .filter(Number.isInteger)
+
     return [{
       type: 'html',
-      value: '<p>Testing</p>'
+      value: headerIndexes
     }]
   });
 
