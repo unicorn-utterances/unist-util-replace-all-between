@@ -1,6 +1,6 @@
 import {remark} from 'remark'
 import {is} from 'unist-util-is';
-import replaceBetween from '../index.js';
+import replaceAllBetween from '../all.js';
 
 const markdown = `
 # Hello World!
@@ -26,7 +26,49 @@ Ciao!
 Testing
 
 # Test
+
+
+<!-- tabs:start -->
+
+#### **English**
+
+Hello!
+
+#### **French**
+
+Bonjour!
+
+Telakjdsf
+
+asdf
+
+<!-- tabs:end -->
+
+# Testing
+
+![](asdf)
 `;
+
+/**
+ * @typedef {Object} Section
+ * @prop {string} header
+ * @prop {any[]} range
+ */
+
+/**
+ * @returns {Section[]}
+ */
+const getSections = (allChildren, headerIndexes) =>
+  headerIndexes.map((_, i, arr) => {
+    let [startIndex, endIndex] = [arr[i], arr[i + 1]];
+    const header = allChildren[startIndex];
+    startIndex += 1;
+
+    return {
+      header,
+      range: allChildren.slice(startIndex, endIndex)
+    };
+  });
 
 // Create a plugin for remark
 const plugin = () => (tree) => {
@@ -42,10 +84,12 @@ const plugin = () => (tree) => {
   };
 
   // Get lists between `start` and `end`
-  replaceBetween(tree, start, end, list => {
+  replaceAllBetween(tree, start, end, list => {
     // Remove both `tabs` mention
-    list.shift();
-    list.pop()
+    // list.shift();
+    // list.pop()
+
+    console.log({list});
 
     const headerIndexes = list
       .map((node, i) => is(node, {type: 'heading'}) && i)
@@ -53,8 +97,23 @@ const plugin = () => (tree) => {
 
     return [{
       type: 'html',
-      value: headerIndexes
+      value: headerIndexes.toString()
     }]
+
+    // const sections = getSections(list, headerIndexes);
+    //
+    // const tabNodes = sections.map(section => {
+    //   return {
+    //     type: 'tab',
+    //     heading: section.heading,
+    //     children: section.range
+    //   }
+    // })
+    //
+    // return [{
+    //   type: 'tabList',
+    //   children: tabNodes
+    // }]
   });
 
   // Return new tree
@@ -65,19 +124,3 @@ remark()
   .use(plugin)
   .process(markdown)
   .then((result) => console.log(result.toString()), console.error);
-
-/**
- * Outputs:
- *
- * **List one:**
- *
- * - 1
- * - 2
- *
- * **List two:**
- *
- * - 3
- * - 4
- * - 5
- *
- */
