@@ -1,5 +1,5 @@
-const remark = require('remark');
-const replaceBetween = require('..');
+import {remark} from 'remark'
+import replaceBetween from '../index.js';
 
 const markdown = `
 # Hello World!
