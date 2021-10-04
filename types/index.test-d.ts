@@ -17,9 +17,9 @@ expectError(between(parent, n1, n2));
 /**
  * Incorrect types of arguments
  */
-expectError(between((v: Node[]) => v));
-expectError(between(parent, (v: Node[]) => v));
-expectError(between(parent, n1, (v: Node[]) => v));
+expectError(between((v: Node[][]) => v));
+expectError(between(parent, (v: Node[][]) => v));
+expectError(between(parent, n1, (v: Node[][]) => v));
 
 /**
  * Incorrect test type
