@@ -1,7 +1,7 @@
 {
-  "name": "unist-util-find-all-between",
-  "version": "2.1.0",
-  "description": "Utility to find nodes between two nodes",
+  "name": "unist-util-replace-all-between",
+  "version": "0.1.0",
+  "description": "Utility to replace nodes between all instances of two nodes",
   "main": "index.js",
   "engines": {
     "node": ">=10"

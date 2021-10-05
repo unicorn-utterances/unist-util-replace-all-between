@@ -2,7 +2,6 @@
   "name": "unist-util-replace-between-example",
   "type": "module",
   "dependencies": {
-    "remark": "^14.0.1",
-    "unist-util-is": "^5.1.1"
+    "remark": "^14.0.1"
   }
 }

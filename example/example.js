@@ -1,48 +1,27 @@
 import {remark} from 'remark';
-import {is} from 'unist-util-is';
-import replaceAllBetween from '..';
+import replaceAllBetween from '../index.js';
 
 const markdown = `
 # Hello World!
 
 This is a [Real page](https://google.com)
 
-<!-- tabs:start -->
-
-#### **English**
-
-Hello!
-
-#### **French**
-
-Bonjour!
-
-#### **Italian**
+<!-- hello:start -->
 
 Ciao!
 
-<!-- tabs:end -->
+<!-- hello:end -->
 
 Testing
 
 # Test
 
 
-<!-- tabs:start -->
-
-#### **English**
+<!-- hello:start -->
 
 Hello!
 
-#### **French**
-
-Bonjour!
-
-Telakjdsf
-
-asdf
-
-<!-- tabs:end -->
+<!-- hello:end -->
 
 # Testing
 
@@ -75,12 +54,12 @@ const plugin = () => (tree) => {
   // `start` and `end` nodes to look for, and find between.
   const start = {
     type: 'html',
-    value: '<!-- tabs:start -->'
+    value: '<!-- hello:start -->'
   };
 
   const end = {
     type: 'html',
-    value: '<!-- tabs:end -->'
+    value: '<!-- hello:end -->'
   };
 
   // Get lists between `start` and `end`
@@ -89,25 +68,13 @@ const plugin = () => (tree) => {
     list.shift();
     list.pop();
 
-    const headerIndexes = list
-      .map((node, i) => is(node, {type: 'heading'}) && i)
-      .filter(Number.isInteger);
-
-    const sections = getSections(list, headerIndexes);
-
-    const tabNodes = sections.map((section) => {
-      return {
-        type: 'html',
-        value: section.range
-      };
-    });
-
-    return [
-      {
-        type: 'element',
-        children: tabNodes
+    for (let node of list) {
+      for (let child of node.children) {
+        child.value = child.value + "! This is cool!"
       }
-    ];
+    }
+
+    return list;
   });
 
   // Return new tree
