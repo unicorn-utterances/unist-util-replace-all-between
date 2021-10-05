@@ -1,6 +1,6 @@
-import {remark} from 'remark'
+import {remark} from 'remark';
 import {is} from 'unist-util-is';
-import replaceAllBetween from '../all.js';
+import replaceAllBetween from '..';
 
 const markdown = `
 # Hello World!
@@ -59,8 +59,8 @@ asdf
  * @returns {Section[]}
  */
 const getSections = (allChildren, headerIndexes) =>
-  headerIndexes.map((_, i, arr) => {
-    let [startIndex, endIndex] = [arr[i], arr[i + 1]];
+  headerIndexes.map((_, i, array) => {
+    let [startIndex, endIndex] = [array[i], array[i + 1]];
     const header = allChildren[startIndex];
     startIndex += 1;
 
@@ -84,36 +84,30 @@ const plugin = () => (tree) => {
   };
 
   // Get lists between `start` and `end`
-  replaceAllBetween(tree, start, end, list => {
+  replaceAllBetween(tree, start, end, (list) => {
     // Remove both `tabs` mention
-    // list.shift();
-    // list.pop()
-
-    console.log({list});
+    list.shift();
+    list.pop();
 
     const headerIndexes = list
       .map((node, i) => is(node, {type: 'heading'}) && i)
-      .filter(Number.isInteger)
+      .filter(Number.isInteger);
 
-    return [{
-      type: 'html',
-      value: headerIndexes.toString()
-    }]
+    const sections = getSections(list, headerIndexes);
 
-    // const sections = getSections(list, headerIndexes);
-    //
-    // const tabNodes = sections.map(section => {
-    //   return {
-    //     type: 'tab',
-    //     heading: section.heading,
-    //     children: section.range
-    //   }
-    // })
-    //
-    // return [{
-    //   type: 'tabList',
-    //   children: tabNodes
-    // }]
+    const tabNodes = sections.map((section) => {
+      return {
+        type: 'html',
+        value: section.range
+      };
+    });
+
+    return [
+      {
+        type: 'element',
+        children: tabNodes
+      }
+    ];
   });
 
   // Return new tree

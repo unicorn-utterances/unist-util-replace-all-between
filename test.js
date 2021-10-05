@@ -13,33 +13,38 @@ test('unist-util-find-all-between', (test) => {
   }, 'Should fail without parent node');
 
   test.throws(() => {
-    findAllBetween({type: 'foo', children: [
-        {type: 'start'},
-        {type: 'start'}
-      ]}, {type: 'start'}, {type: 'end'});
+    findAllBetween(
+      {type: 'foo', children: [{type: 'start'}, {type: 'start'}]},
+      {type: 'start'},
+      {type: 'end'}
+    );
   }, 'Tried getting a new start instead of ending');
 
   test.throws(() => {
-    findAllBetween({type: 'foo', children: [
-        {type: 'start'},
-        {type: 'end'},
-        {type: 'start'}
-      ]}, {type: 'start'}, {type: 'end'});
+    findAllBetween(
+      {
+        type: 'foo',
+        children: [{type: 'start'}, {type: 'end'}, {type: 'start'}]
+      },
+      {type: 'start'},
+      {type: 'end'}
+    );
   }, 'No ending value was found');
 
   test.throws(() => {
-    findAllBetween({type: 'foo', children: [
-        {type: 'end'},
-        {type: 'start'}
-      ]}, {type: 'start'}, {type: 'end'});
+    findAllBetween(
+      {type: 'foo', children: [{type: 'end'}, {type: 'start'}]},
+      {type: 'start'},
+      {type: 'end'}
+    );
   }, 'Attempted to end a replacement before finding the start');
 
   test.throws(() => {
-    findAllBetween({type: 'foo', children: [
-        {type: 'start'},
-        {type: 'end'},
-        {type: 'end'},
-      ]}, {type: 'start'}, {type: 'end'});
+    findAllBetween(
+      {type: 'foo', children: [{type: 'start'}, {type: 'end'}, {type: 'end'}]},
+      {type: 'start'},
+      {type: 'end'}
+    );
   }, 'Attempted to end a replacement before finding the start');
 
   test.doesNotThrow(() => {
@@ -102,7 +107,7 @@ test('unist-util-find-all-between', (test) => {
             },
             {
               type: 'baz'
-            },
+            }
           ]
         },
         {type: 'foo'},
@@ -124,7 +129,6 @@ test('unist-util-find-all-between', (test) => {
       ]
     );
   }, 'Replaces two matches with new output');
-
 
   test.end();
 });

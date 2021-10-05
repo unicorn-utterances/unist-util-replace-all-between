@@ -9,36 +9,50 @@ function replaceAllBetween(parent, start, end, func) {
 
   const {children} = parent;
 
-  const isStart = node => is(node, start);
-  const isEnd = node => is(node, end);
+  const isStart = (node) => is(node, start);
+  const isEnd = (node) => is(node, end);
 
   /**
    * @type {Array<{start: number, end: number}>}
    */
-  const ranges = children.reduce((prev, child, i) => {
-    const lastPrev = prev[prev.length - 1];
+  const ranges = children.reduce((previous, child, i) => {
+    const lastPrevious = previous[previous.length - 1];
     if (isStart(children[i])) {
-      if (lastPrev && lastPrev.end === undefined) {
-        console.error('Attempted to start a replacement before the first one was cleaned up')
-        throw new Error('Attempted to start a replacement before the first one was cleaned up');
+      if (lastPrevious && lastPrevious.end === undefined) {
+        console.error(
+          'Attempted to start a replacement before the first one was cleaned up'
+        );
+        throw new Error(
+          'Attempted to start a replacement before the first one was cleaned up'
+        );
       }
-      prev.push({
+
+      previous.push({
         start: i
       });
-      return prev;
+      return previous;
     }
+
     if (isEnd(children[i])) {
-      if (!lastPrev || (lastPrev && lastPrev.start === undefined)) {
-        console.error('Attempted to end a replacement before finding the start', i, lastPrev)
-        throw new Error('Attempted to end a replacement before finding the start');
+      if (!lastPrevious || (lastPrevious && lastPrevious.start === undefined)) {
+        console.error(
+          'Attempted to end a replacement before finding the start',
+          i,
+          lastPrevious
+        );
+        throw new Error(
+          'Attempted to end a replacement before finding the start'
+        );
       }
-      lastPrev.end = i;
+
+      lastPrevious.end = i;
     }
-    return prev;
+
+    return previous;
   }, []);
 
   if (!ranges[ranges.length - 1].end) {
-    console.error('No ending value was found')
+    console.error('No ending value was found');
     throw new Error('No ending value was found');
   }
 
@@ -54,7 +68,11 @@ function replaceAllBetween(parent, start, end, func) {
 
     const changedArray = func(replaced);
 
-    const diff = children.splice(offsetStart, offsetEnd - offsetStart + 1, ...changedArray);
+    const diff = children.splice(
+      offsetStart,
+      offsetEnd - offsetStart + 1,
+      ...changedArray
+    );
 
     offset -= diff.length - changedArray.length;
 
