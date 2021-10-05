@@ -1,6 +1,4 @@
-'use strict';
-
-const is = require('unist-util-is');
+import {is} from 'unist-util-is';
 
 function replaceAllBetween(parent, start, end, func) {
   if (!parent || !parent.type || !parent.children) {
@@ -82,4 +80,4 @@ function replaceAllBetween(parent, start, end, func) {
   return children;
 }
 
-module.exports = replaceAllBetween;
+export default replaceAllBetween;

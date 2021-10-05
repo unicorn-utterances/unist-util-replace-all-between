@@ -28,27 +28,6 @@ Hello!
 ![](asdf)
 `;
 
-/**
- * @typedef {Object} Section
- * @prop {string} header
- * @prop {any[]} range
- */
-
-/**
- * @returns {Section[]}
- */
-const getSections = (allChildren, headerIndexes) =>
-  headerIndexes.map((_, i, array) => {
-    let [startIndex, endIndex] = [array[i], array[i + 1]];
-    const header = allChildren[startIndex];
-    startIndex += 1;
-
-    return {
-      header,
-      range: allChildren.slice(startIndex, endIndex)
-    };
-  });
-
 // Create a plugin for remark
 const plugin = () => (tree) => {
   // `start` and `end` nodes to look for, and find between.
@@ -68,9 +47,9 @@ const plugin = () => (tree) => {
     list.shift();
     list.pop();
 
-    for (let node of list) {
-      for (let child of node.children) {
-        child.value = child.value + "! This is cool!"
+    for (const node of list) {
+      for (const child of node.children) {
+        child.value += '! This is cool!';
       }
     }
 

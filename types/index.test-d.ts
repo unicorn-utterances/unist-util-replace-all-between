@@ -1,9 +1,9 @@
 import {Node, Parent} from 'unist';
 import {expectError} from 'tsd';
-import between = require('.');
+import between from './index.js';
 
-const n1: Node = {type: 'a', value: 'a'};
-const n2: Node = {type: 'b', value: 'b'};
+const n1: Node<{value: string}> = {type: 'a', data: {value: 'a'}};
+const n2: Node<{value: string}> = {type: 'b', data: {value: 'b'}};
 const parent: Parent = {type: 'root', children: [n1, n2]};
 
 /**

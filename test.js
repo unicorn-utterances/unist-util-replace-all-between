@@ -1,7 +1,5 @@
-'use strict';
-
-const {test} = require('tap');
-const findAllBetween = require('.');
+import {test} from 'tap';
+import findAllBetween from './index.js';
 
 test('unist-util-find-all-between', (test) => {
   test.throws(() => {
