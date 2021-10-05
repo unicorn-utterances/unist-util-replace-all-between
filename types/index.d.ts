@@ -14,5 +14,5 @@ export default function findAllBetween<T extends Node>(
   parent: Parent,
   start: Node,
   end: Node,
-  func: (node: Node[]) => Node[]
+  func: (nodes: Node[]) => Node[]
 ): Node[][];

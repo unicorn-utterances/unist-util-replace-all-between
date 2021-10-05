@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrzmmr/unist-util-find-all-between.git"
+    "url": "git+https://github.com/unicorn-utterances/unist-util-replace-all-between.git"
   },
   "keywords": [
     "unist",
@@ -32,12 +32,11 @@
     "util",
     "utility"
   ],
-  "author": "mrzmmr",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mrzmmr/unist-util-find-all-between/issues"
+    "url": "https://github.com/unicorn-utterances/unist-util-replace-all-between/issues"
   },
-  "homepage": "https://github.com/mrzmmr/unist-util-find-all-between#readme",
+  "homepage": "https://github.com/unicorn-utterances/unist-util-replace-all-between#readme",
   "dependencies": {
     "unist-util-is": "^5.1.1"
   },
