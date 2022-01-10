@@ -1,6 +1,6 @@
 {
   "name": "unist-util-replace-all-between",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Utility to replace nodes between all instances of two nodes",
   "sideEffects": false,
   "type": "module",
