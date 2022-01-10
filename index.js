@@ -49,6 +49,11 @@ function replaceAllBetween(parent, start, end, func) {
     return previous;
   }, []);
 
+  // Nothing found to replace
+  if (ranges.length === 0) {
+    return children;
+  }
+
   if (!ranges[ranges.length - 1].end) {
     console.error('No ending value was found');
     throw new Error('No ending value was found');

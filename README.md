@@ -1,4 +1,4 @@
-# unist-util-find-all-between
+# unist-util-replace-all-between
 
 [**unist**](https://github.com/syntax-tree/unist) utility to modify an existing child list to replace all elements between all
 instances of two nodes
@@ -8,14 +8,14 @@ instances of two nodes
 [npm](https://docs.npmjs.com/cli/install):
 
 ```sh
-npm install unist-util-find-all-between
+npm install unist-util-replace-all-between
 ```
 
 ## Usage
 
 ```js
 import u from 'unist-builder'
-import findAllBetween from 'unist-util-find-all-between'
+import replaceAllBetween from 'unist-util-replace-all-between'
 
 const tree = u('root', [
   u('start', '1'),
@@ -27,7 +27,7 @@ const tree = u('root', [
   u('end', '4'),
 ])
 
-const newChildren = findAllBetween(tree, {type: 'start'}, {type: 'end'}, () => [u('replaced', '1')])
+const newChildren = replaceAllBetween(tree, {type: 'start'}, {type: 'end'}, () => [u('replaced', '1')])
 
 console.dir(newChildren, {depth: null})
 ```
@@ -44,7 +44,7 @@ Yields:
 
 ## API
 
-### `findAllBetween(parent, start, end, func)`
+### `replaceAllBetween(parent, start, end, func)`
 
 Mutate an existing parent's children to reflect function return
 

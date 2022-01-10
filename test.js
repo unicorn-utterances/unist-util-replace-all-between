@@ -62,6 +62,41 @@ test('unist-util-find-all-between', (test) => {
             }
           ]
         },
+        {type: 'ooo'},
+        {type: 'wow'},
+        (v) => [{type: 'test', data: v.length}]
+      ),
+      [
+        {
+          type: 'foo'
+        },
+        {
+          type: 'bar'
+        },
+        {
+          type: 'baz'
+        }
+      ]
+    );
+  }, 'Nothing was replaced');
+
+  test.doesNotThrow(() => {
+    test.deepEqual(
+      findAllBetween(
+        {
+          type: 'foo',
+          children: [
+            {
+              type: 'foo'
+            },
+            {
+              type: 'bar'
+            },
+            {
+              type: 'baz'
+            }
+          ]
+        },
         {type: 'foo'},
         {type: 'baz'},
         (v) => [{type: 'test', data: v.length}]
