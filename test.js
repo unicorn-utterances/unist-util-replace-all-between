@@ -46,7 +46,7 @@ test('unist-util-find-all-between', (test) => {
   }, 'Attempted to end a replacement before finding the start');
 
   test.doesNotThrow(() => {
-    test.deepEqual(
+    test.same(
       findAllBetween(
         {
           type: 'foo',
@@ -81,7 +81,7 @@ test('unist-util-find-all-between', (test) => {
   }, 'Nothing was replaced');
 
   test.doesNotThrow(() => {
-    test.deepEqual(
+    test.same(
       findAllBetween(
         {
           type: 'foo',
@@ -111,7 +111,7 @@ test('unist-util-find-all-between', (test) => {
   }, 'Replaces single match with new output');
 
   test.doesNotThrow(() => {
-    test.deepEqual(
+    test.same(
       findAllBetween(
         {
           type: 'foo',

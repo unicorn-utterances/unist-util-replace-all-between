@@ -1,6 +1,6 @@
 import {is} from 'unist-util-is';
 
-function replaceAllBetween(parent, start, end, func) {
+function replaceAllBetween(parent, start, end, function_) {
   if (!parent || !parent.type || !parent.children) {
     throw new Error('Expected parent node');
   }
@@ -69,7 +69,7 @@ function replaceAllBetween(parent, start, end, func) {
 
     const replaced = children.slice(offsetStart, offsetEnd + 1);
 
-    const changedArray = func(replaced);
+    const changedArray = function_(replaced);
 
     const diff = children.splice(
       offsetStart,
