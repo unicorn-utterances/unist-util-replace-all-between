@@ -1,12 +1,12 @@
 {
   "name": "unist-util-replace-all-between",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Utility to replace nodes between all instances of two nodes",
   "sideEffects": false,
   "type": "module",
   "main": "index.js",
   "engines": {
-    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+    "node": ">=16.0.0"
   },
   "files": [
     "index.js",
@@ -16,7 +16,7 @@
   "scripts": {
     "lint": "xo",
     "test:types": "tsd",
-    "test:logic": "tap -Rspec --100 test.js",
+    "test:logic": "tap -Rspec test.js",
     "test": "npm run lint && npm run test:types && npm run test:logic",
     "report": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -38,23 +38,25 @@
   },
   "homepage": "https://github.com/unicorn-utterances/unist-util-replace-all-between#readme",
   "dependencies": {
-    "unist-util-is": "^5.1.1"
+    "unist-util-is": "^6.0.0"
   },
   "devDependencies": {
-    "@types/unist": "^2.0.6",
+    "@types/unist": "^3.0.2",
     "coveralls": "^3.1.1",
-    "prettier": "^2.4.1",
-    "tap": "^15.0.10",
-    "tsd": "^0.17.0",
-    "typescript": "^4.4.3",
-    "xo": "^0.45.0"
+    "prettier": "^3.3.2",
+    "tap": "^19.2.5",
+    "tsd": "^0.31.1",
+    "typescript": "^5.5.2",
+    "xo": "^0.58.0"
   },
   "xo": {
     "prettier": true,
     "rules": {
       "unicorn/prefer-number-properties": "off",
       "unicorn/no-array-reduce": "off",
-      "unicorn/no-fn-reference-in-iterator": "off"
+      "unicorn/no-fn-reference-in-iterator": "off",
+      "unicorn/prefer-at": "off",
+      "unicorn/prefer-top-level-await": "off"
     }
   },
   "prettier": {
